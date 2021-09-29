@@ -40,7 +40,7 @@ def main():
     for fh in args.files:
         for number, line in enumerate(fh, start=1):
             if args.number:
-                print(number, line, end='')
+                print("{: >6}\t{}".format(number, line), end='')
             else:
                 print(line, end='')
 
