@@ -2,11 +2,10 @@
 """
 Author : hbuell6 <hbuell6@localhost>
 Date   : 2021-10-03
-Purpose: Rock the Casbah
+Purpose: Translate nucleic acids to proteins
 """
 
 import argparse
-from pprint import pprint
 
 
 # --------------------------------------------------
@@ -14,7 +13,7 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Rock the Casbah',
+        description='Translate nucleic acids to proteins',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('sequence', metavar='str', help='DNA/RNA sequence')
@@ -49,9 +48,12 @@ def main():
         codon_table[codon] = amino
 
     k = 3
-    seq = args.sequence
+    protein = ''
+    seq = args.sequence.upper()
     for codon in [seq[i:i + k] for i in range(0, len(seq), k)]:
-        args.outfile.write(codon_table.get(codon, '-'))
+        protein += codon_table.get(codon, '-')
+
+    args.outfile.write(protein)
 
     print(f'Output written to "{args.outfile.name}".')
 
