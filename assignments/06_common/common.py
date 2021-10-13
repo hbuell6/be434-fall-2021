@@ -6,6 +6,7 @@ Purpose: Rock the Casbah
 """
 
 import argparse
+import sys
 
 
 # --------------------------------------------------
@@ -30,7 +31,8 @@ def get_args():
                         '--outfile',
                         help='Output filename',
                         metavar='FILE',
-                        type=argparse.FileType('wt'))
+                        type=argparse.FileType('wt'),
+                        default=sys.stdout)
 
     return parser.parse_args()
 
@@ -53,7 +55,7 @@ def main():
 
     for key in words1:
         if key in words2:
-            print(key)
+            print(key, file=args.outfile)
 
 
 # --------------------------------------------------
