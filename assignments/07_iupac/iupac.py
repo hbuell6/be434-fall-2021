@@ -62,14 +62,12 @@ def main():
         for letter in sequence:
             if letter in iupac:
                 new_seq += iupac.get(letter)
+        if args.outfile == sys.stdout:
+            print(sequence + ' ' + new_seq)
+        else:
+            print(sequence + ' ' + new_seq, file=args.outfile)
 
-        # if args.outfile: 
-        #     print(sequence + new_seq, file=args.outfile)
-        #     print(f'Done, see output in "{args.outfile.name}"')
-        # else: 
-        #     print(sequence + new_seq)
-
-        print(sequence + new_seq, file=args.outfile)
+    if args.outfile != sys.stdout:
         print(f'Done, see output in "{args.outfile.name}"')
 
 
