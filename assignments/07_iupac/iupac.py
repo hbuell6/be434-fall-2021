@@ -2,7 +2,7 @@
 """
 Author : hbuell6 <hbuell6@localhost>
 Date   : 2021-10-13
-Purpose: Rock the Casbah
+Purpose: Expand IUPAC codes
 """
 
 import argparse
@@ -14,7 +14,7 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='Rock the Casbah',
+        description='Expand IUPAC codes',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('SEQ',
@@ -62,10 +62,8 @@ def main():
         for letter in sequence:
             if letter in iupac:
                 new_seq += iupac.get(letter)
-        if args.outfile == sys.stdout:
-            print(sequence + ' ' + new_seq)
-        else:
-            print(sequence + ' ' + new_seq, file=args.outfile)
+
+        print(sequence + ' ' + new_seq, file=args.outfile)
 
     if args.outfile != sys.stdout:
         print(f'Done, see output in "{args.outfile.name}"')
