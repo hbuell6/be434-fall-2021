@@ -47,21 +47,19 @@ def main():
 
     args = get_args()
 
-    def find_kmers(seq, k):
-        """ Find k-mers in string """
 
-        n = len(seq) - k + 1
-        return [] if n < 1 else [seq[i:i + k] for i in range(n)]
+def find_kmers(seq, k):
+    """ Find k-mers in string """
 
-    def test_find_kmers():
-        """ Test find_kmers """
+    n = len(seq) - k + 1
+    return [] if n < 1 else [seq[i:i + k] for i in range(n)]
 
-        assert find_kmers('', 1) == []
-        assert find_kmers('ACTG', 1) == ['A', 'C', 'T', 'G']
-        assert find_kmers('ACTG', 2) == ['AC', 'CT', 'TG']
-        assert find_kmers('ACTG', 3) == ['ACT', 'CTG']
-        assert find_kmers('ACTG', 4) == ['ACTG']
-        assert find_kmers('ACTG', 5) == []
+    
+    words1 = {}
+    for line in args.file1:
+        for word in line.split():
+            for kmer in find_kmers(word, k):
+                words1[kmer] = 1
 
 
 # --------------------------------------------------
