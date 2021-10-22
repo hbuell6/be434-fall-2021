@@ -47,19 +47,21 @@ def main():
 
     args = get_args()
 
+    words1 = {}
+    for line in args.file1:
+        for word in line.split():
+            for kmer in find_kmers(word, args.kmer):
+                words1[kmer] = 1
 
+    print(words1)
+
+
+# --------------------------------------------------
 def find_kmers(seq, k):
     """ Find k-mers in string """
 
     n = len(seq) - k + 1
     return [] if n < 1 else [seq[i:i + k] for i in range(n)]
-
-    
-    words1 = {}
-    for line in args.file1:
-        for word in line.split():
-            for kmer in find_kmers(word, k):
-                words1[kmer] = 1
 
 
 # --------------------------------------------------
