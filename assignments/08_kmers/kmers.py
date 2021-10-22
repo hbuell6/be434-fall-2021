@@ -51,9 +51,23 @@ def main():
     for line in args.file1:
         for word in line.split():
             for kmer in find_kmers(word, args.kmer):
-                words1[kmer] = 1
+                if kmer in words1:
+                    words1[kmer] += 1
+                else:
+                    words1[kmer] = 1
 
-    print(words1)
+    words2 = {}
+    for line in args.file2:
+        for word in line.split():
+            for kmer in find_kmers(word, args.kmer):
+                if kmer in words2:
+                    words2[kmer] += 1
+                else:
+                    words2[kmer] = 1
+
+    for kmer in words1:
+        if kmer in words2:
+            print(f'{kmer:10} {words1.get(kmer):5} {words2.get(kmer):5}')
 
 
 # --------------------------------------------------
