@@ -39,10 +39,11 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    reader = SeqIO.parse(args.fasta, 'fasta')
-    for rec in reader:
-        print('ID :', rec.id)
-        print('Seq:', str(rec.seq))
+    for fh in args.fasta:
+        reader = SeqIO.parse(fh, 'fasta')
+        for rec in reader:
+            print('ID :', rec.id)
+            print('Seq:', str(rec.seq))
 
 
 # --------------------------------------------------
