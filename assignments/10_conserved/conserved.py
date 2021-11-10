@@ -29,11 +29,21 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
+    seqs_list = []
     for seq in args.file:
+        seqs_list.append(seq.rstrip())
         print(seq, end='')
-        for letter in seq:
-            conserved=''
-            print(''.join(conserved), end= '')
+    match = ''
+    for i in range(len(seqs_list[0])):
+        bases = []
+        for seq in seqs_list:
+            bases += seq[i]
+        if len(set(bases)) == 1:
+            match += '|'
+        else:
+            match += 'X'
+
+    print(match)
 
 
 # --------------------------------------------------
