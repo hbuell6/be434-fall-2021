@@ -27,8 +27,13 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
+    for seq in args.seq.splitlines():
+        print(rle(seq))
 
-    run = (re.findall(r'((\w)\2*)', args.seq))
+
+# --------------------------------------------------
+def rle(seq):
+    run = (re.findall(r'((\w)\2*)', seq))
     new_seq = ''
     for seq in run:
         for i, base in enumerate(seq):
@@ -47,7 +52,7 @@ def main():
             if i % 2 == 1:
                 new_seq += base
                 new_seq += num
-    print(''.join(new_seq))
+    return(''.join(new_seq))
 
 
 # --------------------------------------------------
