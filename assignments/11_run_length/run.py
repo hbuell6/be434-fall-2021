@@ -43,8 +43,7 @@ def rle(seq):
     new_seq = ''
     for seq, _ in run:
         count = str(len(seq) if len(seq) > 1 else '')
-        for acgt in set(seq):
-            base = acgt
+        for base in set(seq):
             new_seq += (base + count)
     return (''.join(new_seq))
 
