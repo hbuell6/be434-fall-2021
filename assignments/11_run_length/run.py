@@ -7,6 +7,7 @@ Purpose: Run-length encoding/data compression
 
 import argparse
 import re
+import os
 
 
 # --------------------------------------------------
@@ -19,7 +20,12 @@ def get_args():
 
     parser.add_argument('seq', metavar='str', help='DNA text or file')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if os.path.isfile(args.seq):
+        args.seq = open(args.seq).read()
+
+    return args
 
 
 # --------------------------------------------------
@@ -35,24 +41,23 @@ def main():
 def rle(seq):
     run = (re.findall(r'((\w)\2*)', seq))
     new_seq = ''
-    for seq in run:
-        for i, base in enumerate(seq):
-            countA = base.count('A')
-            countC = base.count('C')
-            countG = base.count('G')
-            countT = base.count('T')
-            if countA > 1:
-                num = str(countA)
-            if countC > 1:
-                num = str(countC)
-            if countG > 1:
-                num = str(countG)
-            if countT > 1:
-                num = str(countT)
-            if i % 2 == 1:
-                new_seq += base
-                new_seq += num
-    return(''.join(new_seq))
+    for seq, _ in run:
+        count = str(len(seq) if len(seq) > 1 else '')
+        for acgt in set(seq):
+            base = acgt
+            new_seq += (base + count)
+    return (''.join(new_seq))
+
+
+# --------------------------------------------------
+def test_rle():
+    """ Test rle """
+
+    assert rle('A') == 'A'
+    assert rle('ACGT') == 'ACGT'
+    assert rle('AA') == 'A2'
+    assert rle('AAAAA') == 'A5'
+    assert rle('ACCGGGTTTT') == 'AC2G3T4'
 
 
 # --------------------------------------------------
