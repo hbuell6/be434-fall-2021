@@ -49,15 +49,17 @@ def main():
     for fh in args.files:
         for line in fh:
             if args.insensitive:
-                grep = re.search(args.pattern, line, re.I)
+                match = re.search(args.pattern, line, re.I)
+                if match is None:
+                    continue
                 name = f'{fh.name}:' if len(args.files) > 1 else ''
-                print(name + line.rstrip(),
-                      file=args.outfile) if grep is not None else ''
+                print(name + line.rstrip(), file=args.outfile)
             else:
-                grep = re.search(args.pattern, line)
+                match = re.search(args.pattern, line)
+                if match is None:
+                    continue
                 name = f'{fh.name}:' if len(args.files) > 1 else ''
-                print(name + line.rstrip(),
-                      file=args.outfile) if grep is not None else ''
+                print(name + line.rstrip(), file=args.outfile)
 
 
 # --------------------------------------------------
