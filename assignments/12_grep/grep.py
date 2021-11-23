@@ -48,18 +48,12 @@ def main():
     args = get_args()
     for fh in args.files:
         for line in fh:
-            if args.insensitive:
-                match = re.search(args.pattern, line, re.I)
-                if match is None:
-                    continue
-                name = f'{fh.name}:' if len(args.files) > 1 else ''
-                print(name + line.rstrip(), file=args.outfile)
-            else:
-                match = re.search(args.pattern, line)
-                if match is None:
-                    continue
-                name = f'{fh.name}:' if len(args.files) > 1 else ''
-                print(name + line.rstrip(), file=args.outfile)
+            match = re.search(args.pattern, line,
+                              re.I if args.insensitive else 0)
+            if match is None:
+                continue
+            name = f'{fh.name}:' if len(args.files) > 1 else ''
+            print(name + line.rstrip(), file=args.outfile)
 
 
 # --------------------------------------------------
